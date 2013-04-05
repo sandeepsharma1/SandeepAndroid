@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_height="fill_parent"
+android:layout_width="match_parent"
+android:orientation="vertical">
+
+	    <Button android:id="@+id/button_start_oauth"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Do OAuth"/>
+	   <LinearLayout
+	       android:layout_height="wrap_content"
+android:layout_width="wrap_content"
+android:orientation="horizontal"
+
+	        >
+	       <EditText android:id="@+id/inputSearch"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:hint="Search gmail.."
+    	android:inputType="textVisiblePassword"/>
+	       <Button 
+	          android:layout_width="wrap_content"
+    	android:layout_height="wrap_content" 
+    	android:text="add"
+    	android:id="@+id/get"
+	           />
+	   </LinearLayout> 
+       
+  	 
+	       
+       <ListView 
+           android:id="@+id/list_contacts"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           ></ListView>
+	               
+        
+</LinearLayout>
