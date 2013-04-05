@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.prime.com.tr/ui">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" media="screen" href="resources/css/theme.css" />
+<title>RajiWorld LOGIN</title>
+</h:head>
+<h:body>
+<h:form>
+<center>
+		<h2>Login Form</h2>
+		<h:form>
+		<p:fieldset legend="Login Form" widgetVar="regWidget"
+				style="width: 600px;">
+				<h:panelGrid id="panel" columns="3" width="550" border="0">
+					<h:outputLabel value="UserName" />
+					<p:inputText value="#{loginAction.login.username}"
+						id="firstName" required="true">
+						
+					</p:inputText>
+					<p:message for="firstName" />
+		<h:outputLabel value="Password" />
+					<h:inputSecret id="password" value="#{loginAction.login.password}" required="true">
+					
+        </h:inputSecret>
+        
+        </h:panelGrid>
+        <p:commandButton value="Login"
+						action="#{loginAction.login}" ajax="false"></p:commandButton>
+        </p:fieldset>
+		</h:form>
+		</center>
+		</h:form>
+		</h:body>
+		</html>

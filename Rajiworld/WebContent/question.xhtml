@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.prime.com.tr/ui">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>RajiWorld LOGIN</title>
+</h:head>
+<h:body>
+<h:form>
+<ul>
+					<li><a href="welcome.jsf">Questions</a>
+					</li>
+					<li><a href="question.jsf">Ask Question</a>
+					</li>
+					
+				</ul>
+</h:form>
+<h1>Welcome to Questions </h1>
+
+<h:form>
+
+<h3>Title</h3>  
+<p:inputTextarea rows="1" cols="120" value="#{loginAction.qa.title}" queryDelay="750" minQueryLength="4" id="title" />  
+<h3>Question</h3>  
+<p>Following inputTextarea send a query </p>  
+<p:inputTextarea rows="10" cols="120" value="#{loginAction.qa.question}" queryDelay="750" minQueryLength="4" />  
+<p:commandButton value="Post Your Question"  id="ajax"  
+             action="#{loginAction.submitquestion}" />  
+
+</h:form>
+
+
+</h:body>
+</html>

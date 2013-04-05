@@ -1,0 +1,159 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<title>RajiWorld LOGIN</title>
+</h:head>
+<h:body>
+	<h1>Welcome to RajiWorld</h1>
+	<h:form>
+	
+		<ul>
+			<li><a href="welcome.jsf">Questions</a></li>
+			<li><a href="question.jsf">Ask Question</a></li>
+
+		</ul>
+
+		<p:dataTable id="tbl" var="ques" cellpadding="5"
+			value="#{loginAction.searchResults}" rowKey="ques.qid"
+			selection="ques.selectedTitle" border="0" style="width: 1200"
+			update="excelPdfPanelGroup" selectionMode="single">
+			<p:column rowspan="5" colspan="2">
+				<f:facet name="header">
+
+				</f:facet>
+				<p:commandLink value="#{ques.title}" title="#{ques.question}"
+					onclick="dlg.show();" render="tbl"
+					action="#{loginAction.fetchselectedqa}" update="form:grid,display"
+					immediate="true">
+					<f:setPropertyActionListener value="#{ques}"
+						target="#{loginAction.selectedTitle}" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+
+
+	</h:form>
+
+
+	<p:growl id="growl" showDetail="true" life="3000" />
+	<p:dialog id="dialog" header="Question" widgetVar="dlg" modal="true"
+		width="1000" height="650" showEffect="explode" hideEffect="explode">
+
+		<h:form id="form">
+			<h:panelGrid columns="2" cellpadding="5" id="grid">
+				<h3>Title:</h3>
+				<h:outputText rows="1" cols="100"
+					value="#{loginAction.selectedTitle.title}" />
+				<h3>Question:</h3>
+				<h:outputText rows="10" cols="100"
+					value="#{loginAction.selectedTitle.question}" />
+				<h3>Question posted by:</h3>
+				<h:outputText rows="10" cols="100"
+					value="#{loginAction.selectedTitle.qusername}" />
+
+				<h3>Answers:</h3>
+				<p:dataTable id="tbl1" var="ans" cellpadding="5"
+					value="#{loginAction.allAnswers}" rowKey="ans.ansid"
+					selection="ans.selectedAnswer" border="0" style="width: 800" 
+					update="excelPdfPanelGroup"	selectionMode="single">
+
+
+					<p:column>
+
+						<f:facet name="header">
+							<h:outputText value="Answer" />
+						</f:facet>
+						<h:outputText value="#{ans.answer}" />
+					</p:column>
+
+					<p:column>
+
+						<f:facet name="header">
+							<h:outputText value="Answered By" />
+						</f:facet>
+						<h:outputText value="#{ans.ausername}" />
+					</p:column>
+
+					<p:column style="text-align:center;">
+						<f:facet name="header">
+							<h:outputText value="EDIT" />
+						</f:facet>
+						<p:commandButton title="EDIT" onclick="dialog2.show();"
+							render="tbl1" action="#{loginAction.edit}"
+							image="ui-icon ui-icon-newwin" update="editform:editans,display"
+							immediate="true">
+							<f:setPropertyActionListener value="#{ans}"
+								target="#{loginAction.selectedAnswer}" />
+						</p:commandButton>
+					</p:column>
+
+					
+				</p:dataTable>
+
+
+				<h3>Your Answer:</h3>
+				<p:inputTextarea rows="10" cols="50"
+					value="#{loginAction.ans.answer}" queryDelay="750"
+					minQueryLength="4" />
+				<f:facet name="footer">
+					<p:commandButton value="Post Your Answer" id="ajax"
+						actionListener="#{loginAction.submitAnswer}" update=":tbl,:growl"
+						oncomplete="handleEditDialog(xhr, status, args)"
+						onclick="javascript:void(0)" />
+
+					<p:commandButton id="cancel" value="Cancel" update=":growl"
+						onclick="dlg.hide()" type="reset" />
+				</f:facet>
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+
+<p:growl id="editgrowl" showDetail="true" life="3000" />
+					<p:dialog id="editDialog" header="Edit Answer" widgetVar="dialog2"
+						modal="true" width="425" height="500" showEffect="explode"
+						hideEffect="explode">
+						<h:form id="editform">
+							<h:panelGrid columns="2" cellpadding="5" id="editans">
+
+                                <h:outputText value = "#{loginAction.selectedAnswer.answer}"></h:outputText>
+
+								<h:outputLabel for="name" value="Answer" />
+								<p:inputTextarea id="name" value = "#{loginAction.selectedAnswer.answer}"
+								 rows="10" cols="50" queryDelay="750" minQueryLength="4" required = "true" >
+								</p:inputTextarea>
+
+								<f:facet name="footer">
+									<p:commandButton value="Edit Your Answer" id="ajax"
+										actionListener="#{loginAction.modify}"
+										update=":tbl1,:editgrowl" />
+
+									<p:commandButton id="cancel" value="Cancel" update=":editgrowl"
+										onclick="dialog2.hide()" type="reset" />
+								</f:facet>
+							</h:panelGrid>
+						</h:form>
+					</p:dialog>
+
+
+	<script type="text/javascript">
+					function handleEditDialog(xhr, status, args) {
+						if (args.validationFailed) {
+							jQuery('#dialog').effect("shake", {
+								times : 3
+							}, 100);
+							
+						} else {
+							dlg.hide();
+							
+						}
+					}
+				</script>
+
+
+</h:body>
+</html>
